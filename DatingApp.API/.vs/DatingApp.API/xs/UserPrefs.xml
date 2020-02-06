@@ -1,0 +1,26 @@
+﻿<Properties StartupConfiguration="{539141DB-FF8D-4574-89FD-C83884CF0224}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Data/AuthRepository.cs">
+    <Files>
+      <File FileName="Data/IAuthRepository.cs" Line="13" Column="2" />
+      <File FileName="Data/AuthRepository.cs" Line="5" Column="9" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DatingApp.API" expanded="True">
+            <Node name="DatingApp.API" expanded="True">
+              <Node name="Data" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.DatingApp.API PreferredExecutionTarget="/Applications/Firefox.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
