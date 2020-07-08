@@ -11,6 +11,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 // import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeagoModule } from 'ngx-timeago';
 
 // My components
 import { AppComponent } from './app.component';
@@ -70,6 +71,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
       BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      TimeagoModule.forRoot(),
       NgxGalleryModule,
       FileUploadModule,
       JwtModule.forRoot({
