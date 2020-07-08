@@ -14,11 +14,11 @@
           </div>
           <div>
             <strong>Last Active: </strong>
-            <p>{{ user.lastActive | timeago }}</p>
+            <p>{{ user.lastActive | timeago:live }}</p>
           </div>
           <div>
             <strong>Member Since: </strong>
-            <p>{{ user.created | date }}</p>
+            <p>{{ user.created | date:'mediumDate' }}</p>
           </div>
         </div>
         <div class="card-footer">
