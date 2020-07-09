@@ -2,3 +2,4 @@
 bin
 obj
 appsettings.json
+DatingApp.API/package-lock.json
