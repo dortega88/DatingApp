@@ -47,7 +47,7 @@ namespace DatingApp.API.Controllers
 
             Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
-            return Ok (usersToReturn);
+            return Ok(usersToReturn);
         }
 
         [HttpGet ("{id}", Name = "GetUser")]
@@ -80,7 +80,9 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> LikeUser(int id, int recipientId)
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
                 return Unauthorized();
+            }
 
             var like = await _repo.GetLike(id, recipientId);
 
@@ -88,7 +90,7 @@ namespace DatingApp.API.Controllers
                 return BadRequest("You already like this user.");
 
             if (await _repo.GetUser(recipientId) == null)
-                return Unauthorized();
+                return NotFound();
             
             like = new Like
             {
@@ -99,7 +101,7 @@ namespace DatingApp.API.Controllers
             _repo.Add<Like>(like);
 
             if (await _repo.SaveAll())
-                return Ok("Liked user");
+                return Ok();
             
             return BadRequest("Failed to like user.");
         }
