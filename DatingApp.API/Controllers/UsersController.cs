@@ -27,9 +27,13 @@ namespace DatingApp.API.Controllers
 
         }
 
+        // GET api/users
         [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams) 
         {
+            // return Ok("HI");
+            // throw new Exception("error");
+            
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var userFromRepo = await _repo.GetUser(currentUserId);
@@ -79,6 +83,8 @@ namespace DatingApp.API.Controllers
         [HttpPost ("{id}/like/{recipientId}")]
         public async Task<IActionResult> LikeUser(int id, int recipientId)
         {
+            // return Unauthorized("HI");
+
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             {
                 return Unauthorized();

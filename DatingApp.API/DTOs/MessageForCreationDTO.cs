@@ -6,11 +6,11 @@ namespace DatingApp.API.DTOs
     {
         public int SenderId { get; set; }
         public int RecipientId { get; set; }
-        public DateTime MessagesSent { get; set; }
+        public DateTime MessageSent { get; set; }
         public string Content { get; set; }
         public MessageForCreationDTO()
         {
-            MessagesSent = DateTime.Now;
+            MessageSent = DateTime.Now;
         } 
         
     }
