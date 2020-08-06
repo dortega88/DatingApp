@@ -139,8 +139,7 @@ namespace DatingApp.API.Data {
                 default:
                     messages = messages.Where(u => u.RecipientId == messageParams.UserId && u.IsRead == false);
                     break;
-
-            }
+            }    
             messages = messages.OrderByDescending(d => d.MessageSent);
 
             return await PagedList<Message>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
