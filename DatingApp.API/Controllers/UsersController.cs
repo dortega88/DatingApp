@@ -10,6 +10,7 @@ using DatingApp.API.Helpers;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace DatingApp.API.Controllers 
 {
@@ -20,10 +21,13 @@ namespace DatingApp.API.Controllers
     public class UsersController : ControllerBase {
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
-        public UsersController (IDatingRepository repo, IMapper mapper) 
+        private readonly ILogger<UsersController> _logger;
+
+        public UsersController (IDatingRepository repo, IMapper mapper, ILogger<UsersController> logger) 
         {
             _mapper = mapper;
             _repo = repo;
+            _logger = logger;
 
         }
 
@@ -34,6 +38,13 @@ namespace DatingApp.API.Controllers
             // return Ok("HI");
             // throw new Exception("error");
             
+            // _logger.LogError("Not an error. Just to show the custom logger");
+
+            // System.Diagnostics.Debugger.Break();
+            // Console.WriteLine("Hello world");
+
+            
+
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var userFromRepo = await _repo.GetUser(currentUserId);
