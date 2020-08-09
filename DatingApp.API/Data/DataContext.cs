@@ -31,12 +31,12 @@ namespace DatingApp.API.Data
             
             builder.Entity<Message>()
                 .HasOne(u => u.Sender)
-                .WithMany(u => u.MessagesSent)
+                .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Message>()
                 .HasOne(u => u.Recipient)
-                .WithMany(u => u.MessagesReceived)
+                .WithMany(m => m.MessagesReceived)
                 .OnDelete(DeleteBehavior.Restrict);
 
         }
