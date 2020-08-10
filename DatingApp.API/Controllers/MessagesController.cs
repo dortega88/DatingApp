@@ -24,21 +24,25 @@ namespace DatingApp.API.Controllers {
             _repo = repo;
         }
 
+        // GET api/users/{userId}/messages/{messageid}
         [HttpGet("{id}", Name = "GetMessage")]
         public async Task<IActionResult> GetMessage(int userId, int id)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var messageFromRepo = await _repo.GetMessage(id);
+            // var messageFromRepo = await _repo.GetMessage(id);
+            var messageFromRepo = await _repo.GetMessage(id, userId);
 
-            if (messageFromRepo == null)
+            var message = _mapper.Map<MessageToReturnDTO>(messageFromRepo);
+
+            if (message == null)
                 return NotFound();
 
-            return Ok(messageFromRepo);
+            return Ok(message);
         }
 
-        // GET api/users/1/messages
+        // GET api/users/{userid}/messages
         [HttpGet]
         public async Task<IActionResult> GetMessagesForUser(int userId, [FromQuery]MessageParams messageParams)
         {
@@ -57,6 +61,7 @@ namespace DatingApp.API.Controllers {
             return Ok(messages);
         }
 
+        // GET api/users/{userId}/messages/thread/{recipientId}
         [HttpGet("thread/{recipientId}")]
         public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
         {
@@ -70,7 +75,7 @@ namespace DatingApp.API.Controllers {
             return Ok(messageThread);
         }
 
-
+        // POST api/users/1/messages
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDTO messageForCreationDTO)
         {
