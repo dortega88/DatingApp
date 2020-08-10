@@ -114,9 +114,13 @@ namespace DatingApp.API.Data {
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Message> GetMessage(int id)
+        public async Task<Message> GetMessage(int id, int userId)
         {
-            return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            var message = _context.Messages
+                .Include(u => u.Sender).ThenInclude(p => p.Photos)
+                .Include(u => u.Recipient).ThenInclude(p => p.Photos);
+            
+            return await message.FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
