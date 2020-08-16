@@ -13,11 +13,14 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="messages.length == 0">
+  <div class="row" *ngIf="messages?.length == 0">
     <h3>No messages</h3>
+    <tr>
+      <th>No new unread messages! Yay!</th>
+    </tr>
   </div>
 
-  <div class="row" *ngIf="messages.length > 0">
+  <div class="row" *ngIf="messages?.length > 0">
     <table class="table table-hover" style="cursor: pointer">
       <tr>
         <th style="width: 40%">Message</th>
@@ -44,11 +47,8 @@
         </td>
       </tr>
     </table>
-
   </div>
-
 </div>
-
 <div class="d-flex justify-content-center">
     <pagination [boundaryLinks]="true" 
                 [totalItems]="pagination.totalItems"

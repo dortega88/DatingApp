@@ -20,6 +20,7 @@ export class MemberMessagesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadMessages();
   }
 
   loadMessages() {
