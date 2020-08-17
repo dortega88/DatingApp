@@ -2,6 +2,7 @@
     margin: 25px;
     width: 85%;
     height: 85%;
+
 }
 
 .card-body {
@@ -16,5 +17,5 @@
 
 .ngx-gallery { 
     display: inline-block; 
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
