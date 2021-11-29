@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace DatingApp.API.Models
+namespace DatingApp.API.Entities
 {
-    public class User
+    public class AppUser
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
+        public int Id { get; set; } // Reason for Id is Entity Framework uses Id like this.
+        public string UserName { get; set; } // Reason for UserName and not Username is that Identity uses it this way.
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string Gender { get; set; }

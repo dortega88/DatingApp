@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.DTOs;
-using DatingApp.API.Models;
+using DatingApp.API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -37,7 +37,7 @@ namespace DatingApp.API.Controllers
             if (await _repo.UserExists (userForRegisterDTO.Username))
                 return BadRequest ("Username already exists");
 
-            var userToCreate = _mapper.Map<User>(userForRegisterDTO);
+            var userToCreate = _mapper.Map<AppUser>(userForRegisterDTO);
 
             var createdUser = await _repo.Register (userToCreate, userForRegisterDTO.Password);
 
@@ -57,7 +57,7 @@ namespace DatingApp.API.Controllers
             var claims = new [] 
             {
                 new Claim (ClaimTypes.NameIdentifier, userFromRepo.Id.ToString ()),
-                new Claim (ClaimTypes.Name, userFromRepo.Username)
+                new Claim (ClaimTypes.Name, userFromRepo.UserName)
             };
 
             var key = new SymmetricSecurityKey (Encoding.UTF8
