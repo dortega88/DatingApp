@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using DatingApp.API.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data {
@@ -41,13 +41,13 @@ namespace DatingApp.API.Data {
             return photo;
         }
         
-        public async Task<User> GetUser(int id) 
+        public async Task<AppUser> GetUser(int id) 
         {
             var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
 
             return user;
         }
-        public async Task<PagedList<User>> GetUsers(UserParams userParams) 
+        public async Task<PagedList<AppUser>> GetUsers(UserParams userParams) 
         {
             var users = _context.Users.OrderByDescending(u => u.LastActive).AsQueryable();
 
@@ -89,7 +89,7 @@ namespace DatingApp.API.Data {
                 }
             }
 
-            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+            return await PagedList<AppUser>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         private async Task<IEnumerable<int>> GetUserLikes(int id, bool likers)

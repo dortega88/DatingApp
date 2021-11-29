@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using DatingApp.API.Models;
-
+using DatingApp.API.Entities;
 namespace DatingApp.API.DTOs
 {
     public class UserForDetailedDTO
     {
 
         public int Id { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Gender { get; set; }
         public int Age { get; set; }
         public string KnownAs { get; set; }
