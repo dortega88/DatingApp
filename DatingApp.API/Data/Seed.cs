@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using DatingApp.API.Models;
+using DatingApp.API.Entities;
 using Newtonsoft.Json;
 
 namespace DatingApp.API.Data
@@ -12,7 +12,7 @@ namespace DatingApp.API.Data
             if(!context.Users.Any())
             {
                 var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
-                var users = JsonConvert.DeserializeObject<List<User>>(userData);
+                var users = JsonConvert.DeserializeObject<List<AppUser>>(userData);
                 foreach (var user in users)
                 {
                     byte[] passwordhash, passwordSalt;
@@ -20,7 +20,7 @@ namespace DatingApp.API.Data
 
                     user.PasswordHash = passwordhash;
                     user.PasswordSalt = passwordSalt;
-                    user.Username = user.Username.ToLower();
+                    user.UserName = user.UserName.ToLower();
                     context.Users.Add(user);
                 }
                 context.SaveChanges();

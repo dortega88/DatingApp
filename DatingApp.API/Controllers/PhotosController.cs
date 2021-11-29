@@ -7,7 +7,7 @@ using CloudinaryDotNet.Actions;
 using DatingApp.API.Data;
 using DatingApp.API.DTOs;
 using DatingApp.API.Helpers;
-using DatingApp.API.Models;
+using DatingApp.API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

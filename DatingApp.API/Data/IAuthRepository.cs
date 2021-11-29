@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
-using DatingApp.API.Models;
+using DatingApp.API.Entities;
+
 
 namespace DatingApp.API.Data
 {
     public interface IAuthRepository
     {
-        Task<User> Register(User user, string password);
+        Task<AppUser> Register(AppUser user, string password);
 
-        Task<User> Login(string username, string password);
+        Task<AppUser> Login(string username, string password);
 
         Task<bool> UserExists(string username);
     }
