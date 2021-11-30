@@ -6,7 +6,7 @@ namespace DatingApp.API.DTOs
     public class UserForListDTO
     {
         public int Id { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Gender { get; set; }
         public int Age { get; set; }
         public string KnownAs { get; set; }
