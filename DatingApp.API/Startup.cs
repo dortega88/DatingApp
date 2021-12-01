@@ -25,28 +25,30 @@ namespace DatingApp.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _config;
+        public Startup(IConfiguration config)
         {
-            Configuration = configuration;
+            _config = config;
         }
 
-        public IConfiguration Configuration { get; }
-
         public void ConfigureDevelopmentServices(IServiceCollection services)
-        {      
-            services.AddDbContext<DataContext>(x => { 
-                x.UseLazyLoadingProxies();
-                x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+        {
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
+                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+                // x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             ConfigureServices(services);
         }
 
         public void ConfigureProductionServices(IServiceCollection services)
-        {      
-            services.AddDbContext<DataContext>(x => { 
+        {
+            services.AddDbContext<DataContext>(x =>
+            {
                 x.UseLazyLoadingProxies();
-                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                x.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
 
             ConfigureServices(services);
@@ -62,24 +64,24 @@ namespace DatingApp.API
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
-            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => 
+                .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            .GetBytes(_config.GetSection("AppSettings:Token").Value)),
                         ValidateIssuer = false,
                         ValidateAudience = false
-                        
+
                     };
                 });
-            services.AddScoped<LogUserActivity>();    
+            // services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,28 +93,28 @@ namespace DatingApp.API
             }
             else
             {
-                // app.UseExceptionHandler(builder => {
-                //     builder.Run(async context => {
-                //         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                //         var error = context.Features.Get<IExceptionHandlerFeature>();
-                //         if (error != null)
-                //         {
-                //             context.Response.AddApplicationError(error.Error.Message);
-                //             await context.Response.WriteAsync(error.Error.Message);
-                //         }
-                //     });
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
 
-                // });
-                // app.UseHsts();
+                });
+                app.UseHsts();
             }
 
             app.UseDeveloperExceptionPage();
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            // app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
@@ -123,7 +125,7 @@ namespace DatingApp.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapFallbackToController("Index", "Fallback");
+                // endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
